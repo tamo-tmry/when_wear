@@ -65,5 +65,6 @@ import {
       signOut,
       isAuthed,
       checkAuthState,
+      userName
     }
   }
