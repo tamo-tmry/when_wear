@@ -8,5 +8,9 @@ export default defineNuxtConfig({
             FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID || '',
             FIREBASE_STORAGEBUCKET: process.env.FIREBASE_STORAGEBUCKET || '',
         }
-    }
+    },
+    css: ['vuetify/lib/styles/main.sass'],
+    build: {
+      transpile: ['vuetify'],
+    },
 })
