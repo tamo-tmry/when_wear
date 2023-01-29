@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware( async () => {
+export default defineNuxtRouteMiddleware(async () => {
     // SSRの場合は必要
     // if (process.server) return
 
