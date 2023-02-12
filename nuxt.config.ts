@@ -14,5 +14,10 @@ export default defineNuxtConfig({
     css: ['vuetify/lib/styles/main.sass', '@/assets/style/global.scss'],
     build: {
         transpile: ['vuetify']
+    },
+    app: {
+        head: {
+            meta: [{ hid: 'robots', name: 'robots', content: 'noindex' }]
+        }
     }
 })
