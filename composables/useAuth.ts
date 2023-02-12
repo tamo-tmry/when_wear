@@ -3,7 +3,7 @@ import {
     signOut as firebaseSignOut,
     onAuthStateChanged,
     GoogleAuthProvider,
-    signInWithPopup,
+    signInWithEmailAndPassword,
     User
 } from 'firebase/auth'
 
@@ -19,16 +19,9 @@ export const useAuth = () => {
         userId.value = user?.uid || ''
     }
 
-    async function signIn() {
+    async function signIn(email: string, password: string) {
         const auth = getAuth()
-
-        // Sign in using a redirect.
-        const provider = new GoogleAuthProvider()
-
-        // Start a sign in process for an unauthenticated user.
-        provider.addScope('profile')
-        provider.addScope('email')
-        const { user } = await signInWithPopup(auth, provider)
+        const { user } = await signInWithEmailAndPassword(auth, email, password)
         saveUser(user)
     }
 
