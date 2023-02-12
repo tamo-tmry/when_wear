@@ -1,9 +1,10 @@
 <template>
-    <h1>login page</h1>
-    <p @click="login">login</p>
+    <div class="inner">
+        <VBtn color="primary" @click="login">ログイン</VBtn>
+    </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const { signIn } = useAuth()
 
 const login = async () => {
@@ -12,3 +13,13 @@ const login = async () => {
     navigateTo(to, { redirectCode: 302 })
 }
 </script>
+
+<style scoped lang="scss">
+.inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+</style>

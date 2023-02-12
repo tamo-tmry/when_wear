@@ -7,7 +7,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     const customTheme: ThemeDefinition = {
         dark: true,
         colors: {
-            primary: '#3f51b5',
+            primary: '#7489fc',
             secondary: '#009688',
             accent: '#ff5722',
             error: '#f44336',

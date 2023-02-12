@@ -11,10 +11,12 @@ export const useAuth = () => {
     const token = useState<string>('token', () => '')
     const userName = useState<string>('userName', () => '')
     const isAuthed = computed(() => Boolean(token.value))
+    const userId = useState<string>('userId', () => '')
 
     async function saveUser(user: User | null) {
         token.value = user ? await user.getIdToken() : ''
         userName.value = user?.displayName || ''
+        userId.value = user?.uid || ''
     }
 
     async function signIn() {
@@ -33,6 +35,7 @@ export const useAuth = () => {
     function clearUser() {
         token.value = ''
         userName.value = ''
+        userId.value = ''
     }
 
     async function signOut() {
@@ -65,6 +68,7 @@ export const useAuth = () => {
         signOut,
         isAuthed,
         checkAuthState,
-        userName
+        userName,
+        userId
     }
 }

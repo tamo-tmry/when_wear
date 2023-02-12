@@ -1,27 +1,40 @@
 <template>
-    <TheHeader />
-    <input type="file" @change="uploadFile" />
-    <ul>
-        <li v-for="(image, index) in images" :key="index">
-            <img :src="image" alt="" />
-        </li>
-    </ul>
+    <CommonHeading title="画像追加" icon="mdi-file-image-plus" />
+    <input type="file" @change="selectFile" />
+    <CommonModal
+        :is-open-dialog="isOpenDialog"
+        :file="file"
+        @close-dialog="closeDialog"
+        @submit="upload"
+    />
 </template>
 
 <script setup lang="ts">
-const { uploadImage, fetchImages } = useStorage()
-const { userName } = useAuth()
+import { getBlob } from '~/lib/file'
+const { uploadFile } = useStorage()
+const { userName, userId } = useAuth()
+const { registerClothes } = useDatabase()
 
-const images = await fetchImages(userName.value)
+const isOpenDialog = ref(false)
 
-const uploadFile = async (event: Event) => {
+const closeDialog = () => (isOpenDialog.value = false)
+
+const file = ref()
+
+const upload = async () => {
+    const blob = await getBlob(file.value)
+    const fileUrl = await uploadFile(blob, file.value.name, userName.value)
+    const fileName = file.value.name.split('.')[0]
+    await registerClothes(userId.value, fileUrl, fileName)
+    return navigateTo({
+        path: '/'
+    })
+}
+
+const selectFile = (event: Event) => {
     const target = event.target as HTMLInputElement
-    const files = target.files
-    const file = files![0]
-    const url = URL.createObjectURL(file)
-    const blob = await fetch(url).then((r) => r.blob())
-    URL.revokeObjectURL(url)
-    uploadImage(blob, file.name, userName.value)
+    file.value = (target.files as FileList)[0]
+    isOpenDialog.value = true
 }
 
 definePageMeta({

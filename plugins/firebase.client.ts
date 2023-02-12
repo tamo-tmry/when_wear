@@ -6,7 +6,9 @@ export default defineNuxtPlugin(() => {
         apiKey: config.FIREBASE_API_KEY,
         authDomain: config.FIREBASE_AUTH_DOMAIN,
         projectId: config.FIREBASE_PROJECT_ID,
-        storageBucket: config.FIREBASE_STORAGEBUCKET
+        storageBucket: config.FIREBASE_STORAGEBUCKET,
+        messagingSenderId: config.MESSAGING_SENDER_ID,
+        appId: config.APP_ID
     }
     initializeApp(firebaseConfig)
 })
