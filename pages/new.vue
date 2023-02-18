@@ -1,7 +1,7 @@
 <template>
-    <CommonHeading title="画像追加" icon="mdi-file-image-plus" />
+    <Heading title="画像追加" icon="mdi-file-image-plus" />
     <input type="file" @change="selectFile" />
-    <CommonModal
+    <Modal
         :is-open-dialog="isOpenDialog"
         :file="file"
         @close-dialog="closeDialog"
