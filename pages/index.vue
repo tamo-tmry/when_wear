@@ -1,5 +1,5 @@
 <template>
-    <Heading title="着用する" icon="mdi-hanger" />
+    <CommonHeading title="着用する" icon="mdi-hanger" />
     <VRow v-if="hasClothes">
         <VCol
             v-for="item in clothes"

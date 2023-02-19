@@ -1,5 +1,5 @@
 <template>
-    <Heading title="着用リスト" icon="mdi-view-list" />
+    <CommonHeading title="着用リスト" icon="mdi-view-list" />
     <VTable v-if="hasCombinations">
         <thead>
             <tr>
