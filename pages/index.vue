@@ -1,5 +1,22 @@
 <template>
     <CommonHeading title="着用する" icon="mdi-hanger" />
+    <div class="mb-8">
+        <VCheckbox
+            v-model="isSelectedPastDate"
+            label="過去の日付を選択する"
+            :hide-details="true"
+        />
+        <Datepicker
+            v-show="isSelectedPastDate"
+            v-model="selectedDate"
+            placeholder="日付を選択"
+            :enable-time-picker="false"
+            :format="dateFormat"
+            locale="ja"
+            dark
+            auto-apply
+        />
+    </div>
     <VRow v-if="hasClothes">
         <VCol
             v-for="item in clothes"
@@ -31,6 +48,17 @@
 const { userId } = useAuth()
 const { getClothes, registerCombination } = useDatabase()
 
+const isSelectedPastDate = ref(false)
+const selectedDate = ref()
+
+const dateFormat = (date: Date) => {
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+
+    return `${year}年${month}月${day}日`
+}
+
 const clothes = ref(await getClothes(userId.value))
 
 const hasClothes = Boolean(clothes.value.length)
@@ -53,7 +81,11 @@ const selectClothes = (clothesImageUrl: string) => {
 }
 
 const selectCombination = async () => {
-    await registerCombination(userId.value, selectedClothesImageUrls.value)
+    await registerCombination(
+        userId.value,
+        selectedClothesImageUrls.value,
+        selectedDate.value
+    )
     return navigateTo({ path: '/list' })
 }
 

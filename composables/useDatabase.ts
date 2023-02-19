@@ -6,7 +6,7 @@ import {
     get,
     orderByKey
 } from 'firebase/database'
-import { getToday } from '~/lib/date'
+import { formattedDate, getToday } from '~/lib/date'
 
 export const useDatabase = () => {
     const db = getDatabase()
@@ -23,11 +23,15 @@ export const useDatabase = () => {
         })
     }
 
-    const registerCombination = async (userId: string, relations: string[]) => {
-        const today = getToday()
-        await set(ref(db, `${userId}/combination/${today}`), {
+    const registerCombination = async (
+        userId: string,
+        relations: string[],
+        selectedDate: Date
+    ) => {
+        const date = selectedDate ? formattedDate(selectedDate) : getToday()
+        await set(ref(db, `${userId}/combination/${date}`), {
             relations,
-            wearDate: today
+            wearDate: date
         })
     }
 

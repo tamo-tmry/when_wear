@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     },
     css: ['vuetify/lib/styles/main.sass', '@/assets/style/global.scss'],
     build: {
-        transpile: ['vuetify']
+        transpile: ['vuetify', '@vuepic/vue-datepicker']
     },
     app: {
         head: {
